@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fro9/features/shop/enums/enums.dart';
 import 'package:fro9/utils/constants/enums.dart';
 
 class TBrandTitleText extends StatelessWidget {

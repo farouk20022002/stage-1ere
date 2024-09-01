@@ -3,6 +3,7 @@ import 'package:fro9/common/widgets/appbar/appbar.dart';
 import 'package:fro9/common/widgets/custom_shapes/containers/primary_header-container.dart';
 import 'package:fro9/common/widgets/list_tiles/user_profile_tile.dart';
 import 'package:fro9/common/widgets/texts/section_heading.dart';
+import 'package:fro9/data/repositories/authentication_repository.dart';
 import 'package:fro9/features/personalization/screens/adress/address.dart';
 import 'package:fro9/features/personalization/screens/settings/settings_menu_tile.dart';
 import 'package:fro9/features/shop/screens/cart/widgets/cart_items.dart';
@@ -118,6 +119,10 @@ class SettingsScreen extends StatelessWidget {
                     icon: Iconsax.image,
                     trailing: Switch(value: false, onChanged: (value) {}),
                   ),
+                  FloatingActionButton(
+                    onPressed: () => AuthenticationRepository.instance.logout(),
+                    child: Text("Logout"),
+                  )
                 ],
               ),
             )

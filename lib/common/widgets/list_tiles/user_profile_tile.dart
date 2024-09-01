@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fro9/common/widgets/images/t_circular_image.dart';
+import 'package:fro9/features/personalization/controllers/user_controller.dart';
 import 'package:fro9/utils/constants/colors.dart';
 import 'package:fro9/utils/constants/image_strings.dart';
 import 'package:get/get.dart';
@@ -14,6 +15,7 @@ class TUserProfileTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = UserController.instance;
     return ListTile(
       leading: const TCircularImage(
         image: TImages.user,
@@ -22,12 +24,16 @@ class TUserProfileTile extends StatelessWidget {
         padding: 0,
       ),
       title: Text(
-        'SCSI ecommerce app',
-        style: Theme.of(context).textTheme.headlineSmall!.apply(color: TColors.white),
+        controller.user.value.fullName,
+        style: Theme.of(context)
+            .textTheme
+            .headlineSmall!
+            .apply(color: TColors.white),
       ),
       subtitle: Text(
-        'user@SCSI.com',
-        style: Theme.of(context).textTheme.bodyMedium!.apply(color: TColors.white),
+        controller.user.value.email,
+        style:
+            Theme.of(context).textTheme.bodyMedium!.apply(color: TColors.white),
       ),
       trailing: IconButton(
           onPressed: () => Get.to(() => ProfileScreen()),

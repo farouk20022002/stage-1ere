@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fro9/data/repositories/authentication_repository.dart';
+import 'package:fro9/data/user/user_repository.dart';
 import 'package:fro9/features/authentification/controllers/sign_up/sign_up_controller.dart';
+import 'package:fro9/features/authentification/screens/signup/verify_email.dart';
 import 'package:fro9/features/authentification/screens/signup/widgets/terms_conditions_checkbox.dart';
+import 'package:fro9/features/personalization/models/user_model.dart';
 import 'package:fro9/utils/constants/image_strings.dart';
 import 'package:fro9/utils/constants/sizes.dart';
 import 'package:fro9/utils/constants/text_strings.dart';
@@ -22,7 +25,7 @@ class TSignupForm extends StatelessWidget {
     final showPassword = true.obs;
     // final privacyPolicy = true.obs;
     final email = TextEditingController();
-    final userName = TextEditingController();
+    final username = TextEditingController();
     final lastName = TextEditingController();
     final firstName = TextEditingController();
     final password = TextEditingController();
@@ -67,7 +70,7 @@ class TSignupForm extends StatelessWidget {
               height: TSizes.spaceBtwInputFields,
             ),
             TextFormField(
-              controller: userName,
+              controller: username,
               validator: (Value) =>
                   TValidator.validateEmptyText('User Name', Value),
               expands: false,
@@ -122,28 +125,56 @@ class TSignupForm extends StatelessWidget {
                   onPressed: () async {
                     try {
                       print("Hana d5alna Nverifiw");
-                      TFullScreenLoader.openLoadingDialog(
-                          'We are processing your information.....',
-                          TImages.verifyIllustration);
+                      // TFullScreenLoader.openLoadingDialog(
+                      //     'We are processing your information.....',
+                      //     TImages.verifyIllustration);
 
                       if (!signupFormKey.currentState!.validate()) {
                         return;
                       }
                       if (!TTermsAndConditionBox.privacyPolicy) {
-                        TLoader.warningSnackBar(
+                        return TLoader.warningSnackBar(
                             title: "Accept Privacy Policy",
                             message:
                                 "In order to create an account you must have to read and accept the policy policy and terms of use");
                       }
-                      AuthenticationRepository.instance
+                      print("bch nabdew fl authentification");
+                      final userCredentials = await AuthenticationRepository
+                          .instance
                           .registerWithEmailAndPassword(
                               email.text.trim(), password.text.trim());
+                      print("kamalna l auth");
+                      final newUSer = UserModel(
+                          id: userCredentials!.user!.uid,
+                          username: username.text.trim(),
+                          email: email.text.trim(),
+                          firstName: firstName.text.trim(),
+                          lastName: lastName.text.trim(),
+                          phoneNumber: phoneNumber.text.trim(),
+                          profilePicture: '');
+                      print("bch nasen3ou instance m repo");
+                      final userRepository = Get.put(UserRepository());
+                      print("Sna3neha ");
+                      await userRepository.saveUSerRecord(newUSer);
+                      print("Kamalna sauvegarde");
+
+                      TFullScreenLoader.stopLoading();
+
+                      TLoader.successSnackBar(
+                          title: 'Congratulations',
+                          message:
+                              'Your account has been created! Verify email to continue.');
+                      Get.to(() => VerifyEmailScreen(
+                            email: email.text.trim(),
+                          ));
                     } catch (e) {
+                      TFullScreenLoader.stopLoading();
+
                       TLoader.errorSnackBar(
                           title: 'Oh Snap', message: e.toString());
-                    } finally {
-                      TFullScreenLoader.stopLoading();
                     }
+                    // finally {
+                    // }
                   },
                   child: Text("Create Account")),
             )

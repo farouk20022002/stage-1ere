@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fro9/common/widgets/custom_shapes/containers/rounded_container.dart';
 import 'package:fro9/common/widgets/images/t_circular_image.dart';
 import 'package:fro9/common/widgets/texts/t_brand_title_text_with_verification_icon.dart';
+import 'package:fro9/features/shop/enums/enums.dart';
 import 'package:fro9/utils/constants/colors.dart';
 import 'package:fro9/utils/constants/enums.dart';
 import 'package:fro9/utils/constants/image_strings.dart';

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fro9/common/widgets/texts/section_heading.dart';
+import 'package:fro9/features/shop/enums/enums.dart';
+import 'package:fro9/features/shop/models/product_model.dart';
 import 'package:fro9/features/shop/screens/product_details/widgets/bottom_add_to_cart.dart';
 import 'package:fro9/features/shop/screens/product_details/widgets/product_atributes.dart';
 import 'package:fro9/features/shop/screens/product_details/widgets/product_meta_data.dart';
@@ -13,8 +15,8 @@ import 'package:readmore/readmore.dart';
 import '../../../personalization/screens/profile/widgets/product_image_product_slider.dart';
 
 class ProductDetails extends StatelessWidget {
-  const ProductDetails({super.key});
-
+  const ProductDetails({super.key, required this.product});
+  final ProductModel product;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -23,7 +25,9 @@ class ProductDetails extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              TProductImageSlider(),
+              TProductImageSlider(
+                product: product,
+              ),
               Padding(
                 padding: EdgeInsets.only(
                     right: TSizes.defaultSpace,
@@ -32,11 +36,17 @@ class ProductDetails extends StatelessWidget {
                 child: Column(
                   children: [
                     TRatingAndShare(),
-                    TProductMetaData(),
-                    ProductAttributes(),
-                    SizedBox(
-                      height: TSizes.spaceBtwSections,
+                    TProductMetaData(
+                      product: product,
                     ),
+                    if (product.productType == ProductType.variable.toString())
+                      ProductAttributes(
+                        product: product,
+                      ),
+                    if (product.productType == ProductType.variable.toString())
+                      SizedBox(
+                        height: TSizes.spaceBtwSections,
+                      ),
                     SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
@@ -52,7 +62,7 @@ class ProductDetails extends StatelessWidget {
                       height: TSizes.spaceBtwItems,
                     ),
                     ReadMoreText(
-                      "hedheya sabat kesa7 yeser tnajem tejry byh 9999 Km w maysirlou chy w ken sarlou ija badlou lkjkjkj kjlklkj kjjlk jkj kjk jk jhu hyg v t vg  hv vgvhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh gv gj gvj v h vhv hvh  jh j hedheya sabat kesa7 yeser tnajem tejry byh 9999 Km w maysirlou chy w ken sarlou ija badlou lkjkjkj kjlklkj kjjlk jkj kjk jk jhu hyg v t vg  hv vgvhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh gv gj gvj v h vhv hvh  jh j hedheya sabat kesa7 yeser tnajem tejry byh 9999 Km w maysirlou chy w ken sarlou ija badlou lkjkjkj kjlklkj kjjlk jkj kjk jk jhu hyg v t vg  hv vgvhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh gv gj gvj v h vhv hvh  jh jhedheya sabat kesa7 yeser tnajem tejry byh 9999 Km w maysirlou chy w ken sarlou ija badlou lkjkjkj kjlklkj kjjlk jkj kjk jk jhu hyg v t vg  hv vgvhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh gv gj gvj v h vhv hvh  jh j hedheya sabat kesa7 yeser tnajem tejry byh 9999 Km w maysirlou chy w ken sarlou ija badlou lkjkjkj kjlklkj kjjlk jkj kjk jk jhu hyg v t vg  hv vgvhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh gv gj gvj v h vhv hvh  jh j hedheya sabat kesa7 yeser tnajem tejry byh 9999 Km w maysirlou chy w ken sarlou ija badlou lkjkjkj kjlklkj kjjlk jkj kjk jk jhu hyg v t vg  hv vgvhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh gv gj gvj v h vhv hvh  jh j hedheya sabat kesa7 yeser tnajem tejry byh 9999 Km w maysirlou chy w ken sarlou ija badlou lkjkjkj kjlklkj kjjlk jkj kjk jk jhu hyg v t vg  hv vgvhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh gv gj gvj v h vhv hvh  jh j hedheya sabat kesa7 yeser tnajem tejry byh 9999 Km w maysirlou chy w ken sarlou ija badlou lkjkjkj kjlklkj kjjlk jkj kjk jk jhu hyg v t vg  hv vgvhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh gv gj gvj v h vhv hvh  jh jhedheya sabat kesa7 yeser tnajem tejry byh 9999 Km w maysirlou chy w ken sarlou ija badlou lkjkjkj kjlklkj kjjlk jkj kjk jk jhu hyg v t vg  hv vgvhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh gv gj gvj v h vhv hvh  jh j ",
+                      product.description ?? "there is no description",
                       trimLines: 2,
                       trimMode: TrimMode.Line,
                       trimCollapsedText: 'Show More',

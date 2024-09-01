@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fro9/utils/constants/colors.dart';
 import 'package:fro9/utils/constants/sizes.dart';
@@ -11,7 +12,7 @@ class TCircularImage extends StatelessWidget {
     this.padding = TSizes.sm,
     this.fit = BoxFit.cover,
     required this.image,
-    this.isNetworkImage = false,
+    this.isNetworkImage = true,
     this.overlayColor,
     this.backgroundColor,
   });
@@ -30,13 +31,22 @@ class TCircularImage extends StatelessWidget {
       decoration: BoxDecoration(
           // border: Border.all(color: Colors.black),
           color: backgroundColor ??
-              (THelperFunctions.isDarkMode(context) ? TColors.black : TColors.white),
+              (THelperFunctions.isDarkMode(context)
+                  ? TColors.black
+                  : TColors.white),
           borderRadius: BorderRadius.circular(100)),
-      child: Image(
-        fit: fit,
-        image: isNetworkImage ? NetworkImage(image) : AssetImage(image) as ImageProvider,
-        color: overlayColor,
-      ),
+      child: isNetworkImage
+          ? CachedNetworkImage(
+              fit: fit,
+              color: overlayColor,
+              imageUrl: image,
+              errorWidget: (context, url, error) => Icon(Icons.error),
+            )
+          : Image(
+              fit: fit,
+              image: AssetImage(image),
+              color: overlayColor,
+            ),
     );
   }
 }

@@ -1,27 +1,31 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fro9/common/widgets/success_screen/success_screen.dart';
+import 'package:fro9/data/repositories/authentication_repository.dart';
+
+import 'package:fro9/features/authentification/controllers/sign_up/verify_email_controller.dart';
 import 'package:fro9/features/authentification/screens/login/login.dart';
 import 'package:fro9/utils/constants/image_strings.dart';
 import 'package:fro9/utils/constants/text_strings.dart';
 import 'package:fro9/utils/helpers/helper_functions.dart';
 import 'package:get/get.dart';
-
 import '../../../../utils/constants/sizes.dart';
 
 class VerifyEmailScreen extends StatelessWidget {
   const VerifyEmailScreen({
     super.key,
+    this.email,
   });
-
+  final String? email;
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(VerifyEmailController());
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         actions: [
           IconButton(
-              onPressed: () => Get.offAll(() => const LoginScreen()),
+              onPressed: () => AuthenticationRepository.instance.logout(),
               icon: const Icon(CupertinoIcons.clear))
         ],
       ),
@@ -46,7 +50,7 @@ class VerifyEmailScreen extends StatelessWidget {
                 height: TSizes.spaceBtwItems,
               ),
               Text(
-                'Presented By SCSI.tn http://www.scsi.tn/#',
+                email ?? '',
                 style: Theme.of(context).textTheme.labelLarge,
                 textAlign: TextAlign.center,
               ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fro9/common/widgets/appbar/appbar.dart';
 import 'package:fro9/common/widgets/products/cart/cart_menu_icon.dart';
+import 'package:fro9/features/personalization/controllers/user_controller.dart';
 import 'package:fro9/features/shop/screens/cart/cart.dart';
 import 'package:fro9/utils/constants/colors.dart';
 import 'package:fro9/utils/constants/text_strings.dart';
@@ -13,6 +14,7 @@ class THomeBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(UserController());
     return TAppBar(
       title: Column(
         children: [
@@ -23,12 +25,14 @@ class THomeBar extends StatelessWidget {
                 .labelMedium!
                 .apply(color: TColors.grey),
           ),
-          Text(
-            TTexts.homeAppbarSubTitle,
-            style: Theme.of(context)
-                .textTheme
-                .headlineSmall!
-                .apply(color: TColors.white),
+          Obx(
+            () => Text(
+              controller.user.value.fullName,
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineSmall!
+                  .apply(color: TColors.white),
+            ),
           )
         ],
       ),

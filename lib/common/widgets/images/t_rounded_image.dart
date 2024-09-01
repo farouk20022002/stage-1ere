@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fro9/utils/constants/colors.dart';
 import 'package:fro9/utils/constants/sizes.dart';
@@ -31,6 +32,7 @@ class TRoundedImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: onPressed,
       child: Container(
         width: widht,
         height: height,
@@ -43,11 +45,14 @@ class TRoundedImage extends StatelessWidget {
             borderRadius: applyImageRadius
                 ? BorderRadius.circular(borderRadius)
                 : BorderRadius.zero,
-            child: Image(
-                fit: fit,
-                image: isNetworkImage
-                    ? NetworkImage(imageURl)
-                    : AssetImage(imageURl) as ImageProvider)),
+            child: isNetworkImage
+                ? CachedNetworkImage(
+                    imageUrl: imageURl,
+                    fit: fit,
+                    errorWidget: (context, url, error) => Icon(Icons.error),
+                  )
+                : Image(
+                    fit: fit, image: AssetImage(imageURl) as ImageProvider)),
       ),
     );
   }

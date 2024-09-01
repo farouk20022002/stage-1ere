@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fro9/binfings/general_bindings.dart';
 import 'package:fro9/features/authentification/screens/login/login.dart';
 import 'package:fro9/features/authentification/screens/onboarding/onboarding.dart';
+import 'package:fro9/routes/app_routes.dart';
 import 'package:fro9/utils/constants/colors.dart';
 
 import 'package:fro9/utils/constants/text_strings.dart';
@@ -19,6 +20,7 @@ class App extends StatelessWidget {
       themeMode: ThemeMode.system,
       theme: TAppTheme.lightTheme,
       darkTheme: TAppTheme.darkTheme,
+      getPages: AppRoutes.pages,
       // initialBinding: GeneralBindings(),
       home: Scaffold(
         backgroundColor: TColors.primary,

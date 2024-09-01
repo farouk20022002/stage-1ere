@@ -3,6 +3,7 @@ import 'package:fro9/common/widgets/appbar/appbar.dart';
 import 'package:fro9/common/widgets/icons/t_circular_icon.dart';
 import 'package:fro9/common/widgets/layouts/grid_layout.dart';
 import 'package:fro9/common/widgets/products/product_card/product_card_vertical.dart';
+import 'package:fro9/features/shop/models/product_model.dart';
 import 'package:fro9/features/shop/screens/home/home.dart';
 import 'package:fro9/utils/constants/sizes.dart';
 import 'package:get/get.dart';
@@ -33,7 +34,9 @@ class FavoriteScreen extends StatelessWidget {
             children: [
               TGridLayout(
                   itemCount: 4,
-                  itemBuilder: (_, index) => const TProductCardVertical())
+                  itemBuilder: (_, index) => TProductCardVertical(
+                        product: ProductModel.empty(),
+                      ))
             ],
           ),
         ),

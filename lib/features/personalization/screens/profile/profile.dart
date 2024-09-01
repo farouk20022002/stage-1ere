@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fro9/common/widgets/appbar/appbar.dart';
 import 'package:fro9/common/widgets/images/t_circular_image.dart';
 import 'package:fro9/common/widgets/texts/section_heading.dart';
+import 'package:fro9/features/personalization/controllers/user_controller.dart';
 import 'package:fro9/features/personalization/screens/profile/widgets/profile_menu.dart';
 import 'package:fro9/utils/constants/image_strings.dart';
 import 'package:fro9/utils/constants/sizes.dart';
@@ -11,6 +12,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = UserController.instance;
     return Scaffold(
       appBar: TAppBar(
         showBackArrow: true,
@@ -30,7 +32,8 @@ class ProfileScreen extends StatelessWidget {
                       widht: 80,
                       height: 80,
                     ),
-                    TextButton(onPressed: () {}, child: Text('Change Profile Picture'))
+                    TextButton(
+                        onPressed: () {}, child: Text('Change Profile Picture'))
                   ],
                 ),
               ),
@@ -51,12 +54,12 @@ class ProfileScreen extends StatelessWidget {
               TProfileMenu(
                 onPressed: () {},
                 title: 'name',
-                value: 'SCSI client',
+                value: controller.user.value.fullName,
               ),
               TProfileMenu(
                 onPressed: () {},
                 title: 'username',
-                value: 'SCSI client',
+                value: controller.user.value.username,
               ),
               SizedBox(
                 height: TSizes.spaceBtwItems,
@@ -72,11 +75,23 @@ class ProfileScreen extends StatelessWidget {
               SizedBox(
                 height: TSizes.spaceBtwItems,
               ),
-              TProfileMenu(title: 'UserID', value: '4568', onPressed: () {}),
-              TProfileMenu(title: 'E_Mail', value: 'user@SCSI.com', onPressed: () {}),
-              TProfileMenu(title: 'Phone Number', value: '+216 85 7514 236', onPressed: () {}),
+              TProfileMenu(
+                  title: 'UserID',
+                  value: controller.user.value.id,
+                  onPressed: () {}),
+              TProfileMenu(
+                  title: 'E_Mail',
+                  value: controller.user.value.email,
+                  onPressed: () {}),
+              TProfileMenu(
+                  title: 'Phone Number',
+                  value: controller.user.value.phoneNumber,
+                  onPressed: () {}),
               TProfileMenu(title: 'Gender', value: 'Male', onPressed: () {}),
-              TProfileMenu(title: 'Date Of Birth', value: '15 avril 2002', onPressed: () {}),
+              TProfileMenu(
+                  title: 'Date Of Birth',
+                  value: '15 avril 2002',
+                  onPressed: () {}),
               SizedBox(
                 height: TSizes.spaceBtwItems,
               ),

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fro9/common/widgets/appbar/appbar.dart';
 import 'package:fro9/common/widgets/appbar/tabbar.dart';
@@ -6,6 +7,10 @@ import 'package:fro9/common/widgets/layouts/grid_layout.dart';
 import 'package:fro9/common/widgets/products/cart/cart_menu_icon.dart';
 import 'package:fro9/common/widgets/brands/t_brand_card.dart';
 import 'package:fro9/common/widgets/texts/section_heading.dart';
+import 'package:fro9/data/dummy_data.dart';
+import 'package:fro9/data/repositories/banners/banner_repository.dart';
+import 'package:fro9/data/repositories/categories/category_repository.dart';
+import 'package:fro9/features/shop/controllers/category_controller.dart';
 import 'package:fro9/features/shop/screens/brand/all_brands.dart';
 import 'package:fro9/features/shop/screens/store/widgets/category_tab.dart';
 import 'package:fro9/utils/constants/colors.dart';
@@ -18,8 +23,9 @@ class StoreScrenn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final categories = CategoryController.instance.featuredCategories;
     return DefaultTabController(
-      length: 5,
+      length: categories.length,
       child: Scaffold(
         appBar: TAppBar(
           title: Text(
@@ -53,6 +59,12 @@ class StoreScrenn extends StatelessWidget {
                           const SizedBox(
                             height: TSizes.spaceBtwItems,
                           ),
+                          ElevatedButton(
+                              onPressed: () async {
+                                await BannerRepository.instance
+                                    .uploadDummyData(TDummyData.banners);
+                              },
+                              child: Text('Upload Banner')),
                           const TSearchContainer(
                             padding: EdgeInsets.zero,
                             text: 'Search in Store',
@@ -82,36 +94,16 @@ class StoreScrenn extends StatelessWidget {
                         ],
                       ),
                     ),
-                    bottom: const TTabBar(
-                      tab: [
-                        Tab(
-                          child: Text('Sports'),
-                        ),
-                        Tab(
-                          child: Text('Electronics'),
-                        ),
-                        Tab(
-                          child: Text('Furniture'),
-                        ),
-                        Tab(
-                          child: Text('Clothes'),
-                        ),
-                        Tab(
-                          child: Text('Cosmetics'),
-                        )
-                      ],
-                    ))
+                    bottom: TTabBar(
+                        tab: categories
+                            .map((category) => Tab(child: Text(category.name)))
+                            .toList()))
               ];
             },
-            body: const TabBarView(
-              children: [
-                TCategoryTab(),
-                TCategoryTab(),
-                TCategoryTab(),
-                TCategoryTab(),
-                TCategoryTab(),
-              ],
-            )),
+            body: TabBarView(
+                children: categories
+                    .map((category) => TCategoryTab(category: category))
+                    .toList())),
       ),
     );
   }
